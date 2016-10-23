@@ -11,15 +11,14 @@ public class ScapegoatTree {
 	private int depth = 0;
 	Node parent;
 
-	ScapegoatTree(double alpha) {
+	public ScapegoatTree(double alpha) {
 		setAlpha(alpha);
 	}	
 
 	public boolean insert(int key) {
 		if (root == null) {
-			System.out.println(key + " inserted as root");
 			root = new Node(key,null);
-			incSize();
+			size++;
 			maxSize = Math.max(size, maxSize);
 			return true;	
 		}
@@ -36,27 +35,22 @@ public class ScapegoatTree {
 		if (key < node.getKey()) {
 			Node left = node.getLeftChild();
 			if (left == null) {
-				System.out.println(key + " inserted as left Child of " + node.getKey());
+				//System.out.println(key + " inserted as left Child of " + node.getKey());
 				Node n = new Node(key, node);
 				node.setLeftChild(n);
-				incSize();
+				size++;
 				maxSize = Math.max(size, maxSize);
 				if (toDeep(n)) {
-					//System.out.println("Finding scape");
 					Node scape = findscapegoat(root, n);
 					if (parent != null && parent.getLeftChild() == scape ) {
-						System.out.println("Parent: " + parent.getKey());
-						parent.setLeftChild(rebuild(scape.getSize(), scape)); //sæt til at være left child
+						parent.setLeftChild(rebuild(scape.getSize(), scape)); 
 					}	
 					if (parent != null && parent.getRightChild() == scape ) {
-						System.out.println("Parent: " + parent.getKey());
-						parent.setRightChild(rebuild(scape.getSize(), scape)); //sæt til at være left child
+						parent.setRightChild(rebuild(scape.getSize(), scape)); 
 					}
 					else {
-						root = rebuild(scape.getSize(), scape); //sæt til at være left child
+						root = rebuild(scape.getSize(), scape); 
 					}
-					System.out.println("printing after rebuild");
-					printTree(root);
 				}
 				return true;
 			}
@@ -67,28 +61,22 @@ public class ScapegoatTree {
 		if (key > node.getKey()) {
 			Node right = node.getRightChild();
 			if (right == null) {
-				System.out.println(key + " inserted as right Child of " + node.getKey());
+				//System.out.println(key + " inserted as right Child of " + node.getKey());
 				Node n = new Node(key, node);		
 				node.setRightChild(n);
-				incSize();
+				size++;
 				maxSize = Math.max(size, maxSize);
 				if (toDeep(n)) {
-					//System.out.println("Finding scape");
 					Node scape = findscapegoat(root, n);
-					//System.out.println("scape found: " + scape.getKey());
 					if (parent != null && parent.getLeftChild() == scape ) {
-						System.out.println("Parent: " + parent.getKey());
-						parent.setLeftChild(rebuild(scape.getSize(), scape)); //sæt til at være left child
+						parent.setLeftChild(rebuild(scape.getSize(), scape));
 					}	
 					if (parent != null && parent.getRightChild() == scape ) {
-						System.out.println("Parent: " + parent.getKey());
-						parent.setRightChild(rebuild(scape.getSize(), scape)); //sæt til at være left child
+						parent.setRightChild(rebuild(scape.getSize(), scape)); 
 					}
 					else {
-						root = rebuild(scape.getSize(), scape); //sæt til at være left child
+						root = rebuild(scape.getSize(), scape); 
 					}
-					System.out.println("printing after rebuild");					
-					printTree(root);
 				}		
 				return true;
 			}
@@ -114,7 +102,7 @@ public class ScapegoatTree {
 			if (node.getLeftChild() == null && node.getRightChild() == null) {
 				System.out.println(node.getKey() + " has been deleted");
 				node = null;
-				decSize();
+				size--;
 				if (size < alpha * maxSize) {
 					root = rebuild(size, root);
 					maxSize = size;
@@ -152,12 +140,12 @@ public class ScapegoatTree {
 		Node right = node.getRightChild();
 		Node left = node.getLeftChild();
 		if (left == null) {
-			System.out.println(node.getKey() + " has been deleted and " + right.getKey() + " took its place");
+			//System.out.println(node.getKey() + " has been deleted and " + right.getKey() + " took its place");
 			node.setKey(right.getKey());
 			node.setLeftChild(right.getLeftChild());
 			node.setRightChild(right.getRightChild());
 			right = null;
-			decSize();
+			size--;
 			if (size < alpha * maxSize) {
 				root = rebuild(size, root);
 				maxSize = size;
@@ -165,12 +153,12 @@ public class ScapegoatTree {
 			return true;
 		}
 		if (right == null) {
-			System.out.println(node.getKey() + " has been deleted and " + left.getKey() + " took its place");
+			//System.out.println(node.getKey() + " has been deleted and " + left.getKey() + " took its place");
 			node.setKey(left.getKey());
 			node.setLeftChild(left.getLeftChild());
 			node.setRightChild(left.getRightChild());
 			left = null;
-			decSize();
+			size--;
 			if (size < alpha * maxSize) {
 				root = rebuild(size, root);
 				maxSize = size;
@@ -179,10 +167,10 @@ public class ScapegoatTree {
 		}
 		if (right != null && left != null) {
 			Node rightChildMin = getMin(right);
-			System.out.println(node.getKey() + " has been deleted and " + rightChildMin.getKey() + " took its place");
+			//System.out.println(node.getKey() + " has been deleted and " + rightChildMin.getKey() + " took its place");
 			node.setKey(rightChildMin.getKey());
 			rightChildMin = null;
-			decSize();
+			size--;
 			if (size < alpha * maxSize) {
 				root = rebuild(size, root);
 				maxSize = size;
@@ -205,7 +193,6 @@ public class ScapegoatTree {
 	}
 
 	public Node findscapegoat(Node x, Node n) {
-		//System.out.println("finding scape from: " + x.getKey() + " going towards " + n.getKey() );
 		Node left = x.getLeftChild();
 		Node right = x.getRightChild();
 		int leftsize = 0;
@@ -222,7 +209,6 @@ public class ScapegoatTree {
 				return findscapegoat(right, n);
 			}
 			else {
-				//System.out.println("scape is: " + x.getKey());
 				return x;
 			}
 		}
@@ -232,11 +218,9 @@ public class ScapegoatTree {
 				return findscapegoat(left, n);
 			}
 			else {
-				//System.out.println("scape is: " + x.getKey());
 				return x;
 			}		
 		}
-		System.out.println("returning null");
 		return null;
 	}
 	
@@ -269,7 +253,6 @@ public class ScapegoatTree {
 		return false;
 	}
 
-	//Noget galt i BuildTree
 	public Node buildTree(double subSize, Node  x) {
 		if (subSize == 0) {
 			x.setLeftChild(null);
@@ -283,7 +266,6 @@ public class ScapegoatTree {
 	}
 
 	public Node rebuild(double subSize, Node scapegoat) {
-		System.out.println("rebuild with size: " + subSize + " and node: " + scapegoat.getKey());
 		Node w = new Node();
 		Node z = flatten(scapegoat, w);
 		buildTree(subSize, z);
@@ -323,14 +305,6 @@ public class ScapegoatTree {
 			System.out.println("Go right");
 			printTree(x.getRightChild());
 		}
-	}
-
-	public void incSize() {
-		size++;
-	}
-
-	public void decSize() {
-		size--;
 	}
 
 	public int getSize() {

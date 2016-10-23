@@ -21,10 +21,6 @@ public class Node {
 		return key;
 	}
 
-	public Node getParent() {
-		return parent;
-	}
-
 	public Node getLeftChild() {
 		return leftChild;
 	}
@@ -42,10 +38,6 @@ public class Node {
 		return size;
 	}
 
-	public int getHight() {
-		return 0;
-	}
-
 	public void setLeftChild(Node n) {
 		leftChild = n;
 	}
@@ -53,10 +45,6 @@ public class Node {
 
 	public void setRightChild(Node n) {
 		rightChild = n;
-	}
-
-	public void setParent(Node n) {
-		parent = n;
 	}
 
 	public void setKey(int k) {
