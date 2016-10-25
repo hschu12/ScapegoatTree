@@ -11,22 +11,27 @@ public class ScapegoatTree {
 	private int depth = 0;
 	private Node parent;
 	private boolean test;
+	public int pointersused;
 
 	public ScapegoatTree(double alpha, boolean test) {
 		setAlpha(alpha);
 		this.test = test;
 	}	
 
-	public void search(int key) {
+	public boolean search(int key) {
+		pointersused = 0;
+		pointersused++;
 		if (search(key, root)) {
 			if (!test) {
-				System.out.println(key + " found. ");
+				System.out.print(key + " found. ");
 			}
+			return true;
 		}
 		else {
 			if (!test) {			
-				System.out.println(key + " not found. ");
+				System.out.print(key + " not found. ");
 			}
+			return false;
 		}
 	}
 
@@ -38,11 +43,13 @@ public class ScapegoatTree {
 			return true;
 		}
 		if (key < node.getKey()) {
+			pointersused++;
 			depth++;
 			Node left = node.getLeftChild();
 			return search(key, left);
 		}
 		if (key > node.getKey()) {
+			pointersused++;
 			depth++;
 			Node right = node.getRightChild();
 			return search(key, right);
@@ -66,7 +73,7 @@ public class ScapegoatTree {
 	private boolean insert(int key, Node node) {
 		if (key == node.getKey()) {
 			if (!test) {
-				System.out.println(key + " Already exists ");
+				System.out.print(key + " Already exists ");
 			}
 			return false;
 		}
@@ -126,7 +133,7 @@ public class ScapegoatTree {
 	public boolean delete(int key) {
 		if (root == null) {
 			if (!test) {
-				System.out.println("Tree is empty. ");
+				System.out.print("Tree is empty. ");
 			}
 			return false;
 		}
@@ -157,7 +164,7 @@ public class ScapegoatTree {
 			}
 			else {
 				if (!test) {
-					System.out.println("Not found. ");
+					System.out.print("Not found. ");
 				}
 				return false;
 			}
@@ -169,7 +176,7 @@ public class ScapegoatTree {
 			}
 			else {
 				if (!test) {
-					System.out.println("not found");
+					System.out.print("not found");
 				}
 				return false;
 			}
