@@ -5,7 +5,7 @@
 
 public class Program{
 	public static void main(String args[]) {
-		ScapegoatTree tree = new ScapegoatTree(0.5);
+		ScapegoatTree tree = new ScapegoatTree(0.5, false);
 		tree.insert(24);
 		tree.insert(11);
 		tree.insert(15);
@@ -15,6 +15,6 @@ public class Program{
 		tree.insert(27);
 		tree.insert(25);
 		tree.insert(14);
-		tree.printTree();
+		tree.traverseTree();
 	}
 }

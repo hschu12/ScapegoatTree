@@ -9,11 +9,47 @@ public class ScapegoatTree {
 	private int maxSize;
 	private double alpha;
 	private int depth = 0;
-	Node parent;
+	private Node parent;
+	private boolean test;
 
-	public ScapegoatTree(double alpha) {
+	public ScapegoatTree(double alpha, boolean test) {
 		setAlpha(alpha);
+		this.test = test;
 	}	
+
+	public void search(int key) {
+		if (search(key, root)) {
+			if (!test) {
+				System.out.println(key + " found. ");
+			}
+		}
+		else {
+			if (!test) {			
+				System.out.println(key + " not found. ");
+			}
+		}
+	}
+
+	private boolean search(int key, Node node) {
+		if (node == null) {
+			return false;
+		}
+		if (key == node.getKey()) {
+			return true;
+		}
+		if (key < node.getKey()) {
+			depth++;
+			Node left = node.getLeftChild();
+			return search(key, left);
+		}
+		if (key > node.getKey()) {
+			depth++;
+			Node right = node.getRightChild();
+			return search(key, right);
+		}
+		return false;
+	}
+
 
 	public boolean insert(int key) {
 		if (root == null) {
@@ -27,15 +63,16 @@ public class ScapegoatTree {
 		}
 	}
 
-	public boolean insert(int key, Node node) {
+	private boolean insert(int key, Node node) {
 		if (key == node.getKey()) {
-			System.out.println(key + " Already exists");
+			if (!test) {
+				System.out.println(key + " Already exists ");
+			}
 			return false;
 		}
 		if (key < node.getKey()) {
 			Node left = node.getLeftChild();
 			if (left == null) {
-				//System.out.println(key + " inserted as left Child of " + node.getKey());
 				Node n = new Node(key);
 				node.setLeftChild(n);
 				size++;
@@ -61,7 +98,6 @@ public class ScapegoatTree {
 		if (key > node.getKey()) {
 			Node right = node.getRightChild();
 			if (right == null) {
-				//System.out.println(key + " inserted as right Child of " + node.getKey());
 				Node n = new Node(key);		
 				node.setRightChild(n);
 				size++;
@@ -89,7 +125,9 @@ public class ScapegoatTree {
 
 	public boolean delete(int key) {
 		if (root == null) {
-			System.out.println("Tree is empty");
+			if (!test) {
+				System.out.println("Tree is empty. ");
+			}
 			return false;
 		}
 		else {
@@ -97,10 +135,9 @@ public class ScapegoatTree {
 		}
 	}
 
-	public boolean delete(int key, Node node) {
+	private boolean delete(int key, Node node) {
 		if (key == node.getKey()) {
 			if (node.getLeftChild() == null && node.getRightChild() == null) {
-				System.out.println(node.getKey() + " has been deleted");
 				node = null;
 				size--;
 				if (size < alpha * maxSize) {
@@ -119,7 +156,9 @@ public class ScapegoatTree {
 				return delete(key, left);
 			}
 			else {
-				System.out.println("Not found");
+				if (!test) {
+					System.out.println("Not found. ");
+				}
 				return false;
 			}
 		}
@@ -129,18 +168,19 @@ public class ScapegoatTree {
 				return delete(key, right);
 			}
 			else {
-				System.out.println("not found");
+				if (!test) {
+					System.out.println("not found");
+				}
 				return false;
 			}
 		}
 		return false;
 	}
 
-	public boolean findReplace(Node node) {
+	private boolean findReplace(Node node) {
 		Node right = node.getRightChild();
 		Node left = node.getLeftChild();
 		if (left == null) {
-			//System.out.println(node.getKey() + " has been deleted and " + right.getKey() + " took its place");
 			node.setKey(right.getKey());
 			node.setLeftChild(right.getLeftChild());
 			node.setRightChild(right.getRightChild());
@@ -153,7 +193,6 @@ public class ScapegoatTree {
 			return true;
 		}
 		if (right == null) {
-			//System.out.println(node.getKey() + " has been deleted and " + left.getKey() + " took its place");
 			node.setKey(left.getKey());
 			node.setLeftChild(left.getLeftChild());
 			node.setRightChild(left.getRightChild());
@@ -167,7 +206,6 @@ public class ScapegoatTree {
 		}
 		if (right != null && left != null) {
 			Node rightChildMin = getMin(right);
-			//System.out.println(node.getKey() + " has been deleted and " + rightChildMin.getKey() + " took its place");
 			node.setKey(rightChildMin.getKey());
 			rightChildMin = null;
 			size--;
@@ -180,7 +218,7 @@ public class ScapegoatTree {
 		return false;
 	}
 
-	public boolean toDeep(Node n) {
+	private boolean toDeep(Node n) {
 		depth = 0;
 		search(n.getKey(), root);
 		double limit = Math.floor((Math.log(size)/Math.log(1/alpha))); //log_1/alpha (n)
@@ -192,7 +230,7 @@ public class ScapegoatTree {
 		}
 	}
 
-	public Node findscapegoat(Node x, Node n) {
+	private Node findscapegoat(Node x, Node n) {
 		Node left = x.getLeftChild();
 		Node right = x.getRightChild();
 		int leftsize = 0;
@@ -224,36 +262,7 @@ public class ScapegoatTree {
 		return null;
 	}
 	
-	public void search(int key) {
-		if (search(key, root)) {
-			System.out.println(key + " found");
-		}
-		else {
-			System.out.println(key + " not found");
-		}
-	}
-
-	public boolean search(int key, Node node) {
-		if (node == null) {
-			return false;
-		}
-		if (key == node.getKey()) {
-			return true;
-		}
-		if (key < node.getKey()) {
-			depth++;
-			Node left = node.getLeftChild();
-			return search(key, left);
-		}
-		if (key > node.getKey()) {
-			depth++;
-			Node right = node.getRightChild();
-			return search(key, right);
-		}
-		return false;
-	}
-
-	public Node buildTree(double subSize, Node  x) {
+	private Node buildTree(double subSize, Node  x) {
 		if (subSize == 0) {
 			x.setLeftChild(null);
 			return x;
@@ -265,14 +274,14 @@ public class ScapegoatTree {
 		return s;
 	}
 
-	public Node rebuild(double subSize, Node scapegoat) {
+	private Node rebuild(double subSize, Node scapegoat) {
 		Node w = new Node();
 		Node z = flatten(scapegoat, w);
 		buildTree(subSize, z);
 		return w.getLeftChild();
 	}
 
-	public Node flatten(Node x, Node y) {
+	private Node flatten(Node x, Node y) {
 		if (x == null) {
 			return y;
 		}
@@ -289,21 +298,21 @@ public class ScapegoatTree {
 		}
 	}
 
-	public void printTree() {
-		printTree(root);
+	public void traverseTree() {
+		traverseTree(root);
 	}
 
-	public void printTree(Node x) {
+	public void traverseTree(Node x) {
 		if (x != null) {
 			System.out.println("hit: " + x.getKey());
 		}
 		if (x.getLeftChild() != null) {
 			System.out.println("Go left");
-			printTree(x.getLeftChild());
+			traverseTree(x.getLeftChild());
 		}
 		if (x.getRightChild() != null) {
 			System.out.println("Go right");
-			printTree(x.getRightChild());
+			traverseTree(x.getRightChild());
 		}
 	}
 
@@ -311,7 +320,7 @@ public class ScapegoatTree {
 		return size;
 	}
 
-	public void setAlpha(double a) {
+	private void setAlpha(double a) {
 		alpha = Math.max(a, 0.5);
 		alpha = Math.min(1, alpha);
 	}
