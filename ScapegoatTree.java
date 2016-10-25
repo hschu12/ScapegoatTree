@@ -12,6 +12,8 @@ public class ScapegoatTree {
 	private Node parent;
 	private boolean test;
 	public int pointersused;
+	public int numberOfRebuild = 0;
+	public double sizeOfRebuild;
 
 	public ScapegoatTree(double alpha, boolean test) {
 		setAlpha(alpha);
@@ -20,7 +22,6 @@ public class ScapegoatTree {
 
 	public boolean search(int key) {
 		pointersused = 0;
-		pointersused++;
 		if (search(key, root)) {
 			if (!test) {
 				System.out.print(key + " found. ");
@@ -40,6 +41,7 @@ public class ScapegoatTree {
 			return false;
 		}
 		if (key == node.getKey()) {
+			pointersused++;
 			return true;
 		}
 		if (key < node.getKey()) {
@@ -59,6 +61,7 @@ public class ScapegoatTree {
 
 
 	public boolean insert(int key) {
+		sizeOfRebuild = 0;
 		if (root == null) {
 			root = new Node(key);
 			size++;
@@ -282,6 +285,8 @@ public class ScapegoatTree {
 	}
 
 	private Node rebuild(double subSize, Node scapegoat) {
+		numberOfRebuild++;
+		System.out.println(size + " " + subSize);
 		Node w = new Node();
 		Node z = flatten(scapegoat, w);
 		buildTree(subSize, z);

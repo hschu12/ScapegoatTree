@@ -255,5 +255,69 @@ public class Test {
 		* of the trees involved.                                   *
 		* In-Order input.                                          *
 		***********************************************************/
-	}
+
+		System.out.println("Ascending order list - Rebuild");
+
+		ArrayList<Integer> inOrderRebuildList = new ArrayList<Integer>();
+		for( i = 1; i <= 1000; i++) {
+			inOrderRebuildList.add(i);
+		}
+
+		ScapegoatTree inOrderRebuildScape = new ScapegoatTree(0.5, true);
+
+		for (i = 0; i < 1000; i++) {
+			inOrderRebuildScape.insert(inOrderRebuildList.get(i));
+		}
+
+		System.out.println("Total number of rebuilds: " + inOrderRebuildScape.numberOfRebuild);
+
+		/***********************************************************
+		* Descending-Order input.                                  *
+		***********************************************************/
+
+		System.out.println();
+		System.out.println("Descending order list - Rebuild");
+
+		ArrayList<Integer> descendOrderListRebuild = new ArrayList<Integer>();
+		for( i = 1000; i >= 1; i--) {
+			descendOrderListRebuild.add(i);
+		}
+		
+		ScapegoatTree descendOrderRebuildScape = new ScapegoatTree(0.5, true);
+
+		for (i = 0; i < 1000; i++) {
+			descendOrderRebuildScape.insert(descendOrderListRebuild.get(i));
+		}
+
+		System.out.println("Total number of rebuilds: " + descendOrderRebuildScape.numberOfRebuild);
+
+		/***********************************************************
+		* Permuted input.                                          *
+		***********************************************************/
+
+		System.out.println();
+		System.out.println("Permuted list - Rebuild");
+
+		ArrayList<Integer> permutedrebuild = new ArrayList<Integer>();
+		for (i = 0; i < 1000; i++) {
+			permutedrebuild.add(i);
+		}
+		Collections.shuffle(permutedrebuild);
+
+		ScapegoatTree permutedRebuildScape = new ScapegoatTree(0.5, true);
+
+		for (i = 0; i < 1000; i++) {
+			permutedRebuildScape.insert(permutedrebuild.get(i));
+		}
+
+		System.out.println("Total number of rebuilds: " + permutedRebuildScape.numberOfRebuild);
+
+	}	
 }
+
+
+
+
+
+
+
