@@ -6,15 +6,13 @@
 public class Node {
 	private Node leftChild;
 	private Node rightChild;
-	private Node parent;
 	private int key;
 
 	public Node() {
 	}
 
-	public Node(int key, Node parent) {
+	public Node(int key) {
 		this.key = key;
-		this.parent = parent;
 	}
 
 	public int getKey() {

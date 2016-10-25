@@ -17,7 +17,7 @@ public class ScapegoatTree {
 
 	public boolean insert(int key) {
 		if (root == null) {
-			root = new Node(key,null);
+			root = new Node(key);
 			size++;
 			maxSize = Math.max(size, maxSize);
 			return true;	
@@ -36,7 +36,7 @@ public class ScapegoatTree {
 			Node left = node.getLeftChild();
 			if (left == null) {
 				//System.out.println(key + " inserted as left Child of " + node.getKey());
-				Node n = new Node(key, node);
+				Node n = new Node(key);
 				node.setLeftChild(n);
 				size++;
 				maxSize = Math.max(size, maxSize);
@@ -62,7 +62,7 @@ public class ScapegoatTree {
 			Node right = node.getRightChild();
 			if (right == null) {
 				//System.out.println(key + " inserted as right Child of " + node.getKey());
-				Node n = new Node(key, node);		
+				Node n = new Node(key);		
 				node.setRightChild(n);
 				size++;
 				maxSize = Math.max(size, maxSize);
