@@ -23,15 +23,9 @@ public class ScapegoatTree {
 	public boolean search(int key) {
 		pointersused = 0;
 		if (search(key, root)) {
-			if (!test) {
-				System.out.print(key + " found. ");
-			}
 			return true;
 		}
 		else {
-			if (!test) {			
-				System.out.print(key + " not found. ");
-			}
 			return false;
 		}
 	}
@@ -75,9 +69,6 @@ public class ScapegoatTree {
 
 	private boolean insert(int key, Node node) {
 		if (key == node.getKey()) {
-			if (!test) {
-				System.out.print(key + " Already exists ");
-			}
 			return false;
 		}
 		if (key < node.getKey()) {
@@ -135,9 +126,6 @@ public class ScapegoatTree {
 
 	public boolean delete(int key) {
 		if (root == null) {
-			if (!test) {
-				System.out.print("Tree is empty. ");
-			}
 			return false;
 		}
 		else {
@@ -166,9 +154,6 @@ public class ScapegoatTree {
 				return delete(key, left);
 			}
 			else {
-				if (!test) {
-					System.out.print("Not found. ");
-				}
 				return false;
 			}
 		}
@@ -178,9 +163,6 @@ public class ScapegoatTree {
 				return delete(key, right);
 			}
 			else {
-				if (!test) {
-					System.out.print("not found");
-				}
 				return false;
 			}
 		}
@@ -286,7 +268,9 @@ public class ScapegoatTree {
 
 	private Node rebuild(double subSize, Node scapegoat) {
 		numberOfRebuild++;
-		System.out.println(size + " " + subSize);
+		if (test) {
+			System.out.println(size + " " + subSize);
+		}
 		Node w = new Node();
 		Node z = flatten(scapegoat, w);
 		buildTree(subSize, z);

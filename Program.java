@@ -9,6 +9,9 @@ import java.nio.file.Files;
 import java.nio.charset.Charset;
 import java.nio.file.Paths;
 import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Program {
 	
@@ -28,21 +31,54 @@ public class Program {
 		catch (IOException e){
 			System.out.println("Something went wrong");
 		}	
+		
 		int size = lines.size();
 		ScapegoatTree tree = new ScapegoatTree(0.5, false);
-		for(int i = 0; i < size; i++) {
+
+		try {
+
+			File file = new File("output.txt");
+
+			// if file doesnt exists, then create it
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+
+			FileWriter fw = new FileWriter(file.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
+			
+			for(int i = 0; i < size; i++) {
 			char operation = lines.get(i).charAt(0);
 			int number = Integer.parseInt(lines.get(i).substring(2));
 			switch (operation) {
-				case 'I':	System.out.println(tree.insert(number));
+				case 'I':	if (tree.insert(number)) {
+								bw.write("S\n");
+							}
+							else {
+								bw.write("F\n");
+							}
 							break;
-				case 'D': 	System.out.println(tree.delete(number));
+				case 'D': 	if (tree.delete(number)) {
+								bw.write("S\n");
+							}
+							else {
+								bw.write("F\n");
+							}
 							break;
-				case 'S': 	System.out.println(tree.search(number));
+				case 'S': 	if (tree.delete(number)) {
+								bw.write("S\n");
+							}
+							else {
+								bw.write("F\n");
+							}
 							break;
 				default:	System.out.println("unknown operation");		
 			}
 		}
+			bw.close();
 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
