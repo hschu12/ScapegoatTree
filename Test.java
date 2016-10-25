@@ -13,7 +13,7 @@ public class Test {
 		* Test of Average Search Complexity                        *
 		* In-Order (Ascending) input.                              *
 		***********************************************************/
-/*
+
 		System.out.println("Average - In-Order");
 
 		ArrayList<Integer> inOrderAverageList = new ArrayList<Integer>();
@@ -29,7 +29,7 @@ public class Test {
 
 			while( size < 950 ) {
 				size = size + 50;
-				inOrderAverageScape = new ScapegoatTree(0.5, true);
+				inOrderAverageScape = new ScapegoatTree(0.5);
 				double acumulatedPointers = 0;
 				System.out.print("Size of n = " + size);
 
@@ -50,11 +50,11 @@ public class Test {
 			}
 			size = 0;
 		}
-*/		
+		
 		/***********************************************************
 		* Reverse-Order (Descending) input.                        *
 		***********************************************************/
-/*
+
 		System.out.println("Average - Descend-Order");
 
 		ArrayList<Integer> descendAverageOrderList = new ArrayList<Integer>();
@@ -70,7 +70,7 @@ public class Test {
 
 			while( size < 950 ) {
 				size = size + 50;
-				descendAverageOrderScape = new ScapegoatTree(0.5, true);
+				descendAverageOrderScape = new ScapegoatTree(0.5);
 				double acumulatedPointers = 0;
 				System.out.print("Size of n = " + size);
 
@@ -91,11 +91,11 @@ public class Test {
 			}
 			size = 0;
 		}
-*/
+
 		/***********************************************************
 		* Permuted input. Check number of pointers used per search *
 		***********************************************************/
-/*
+
 		System.out.println("Average - Permute-Order");
 
 		ArrayList<Integer> permutedAverage = new ArrayList<Integer>();
@@ -112,7 +112,7 @@ public class Test {
 
 			while( size < 950 ) {
 				size = size + 50;
-				permutedAverageScape = new ScapegoatTree(0.5, true);
+				permutedAverageScape = new ScapegoatTree(0.5);
 				double acumulatedPointers = 0;
 				System.out.print("Size of n = " + size);
 
@@ -133,12 +133,12 @@ public class Test {
 			}
 			size = 0;
 		}
-*/
+
 		/***********************************************************
 		* Test of Variation in search complexity                   *
 		* In-Order (Ascending) input.                              *
 		***********************************************************/
-/*
+
 		System.out.println("Ascending order list");
 
 		ArrayList<Integer> inOrderList = new ArrayList<Integer>();
@@ -146,7 +146,7 @@ public class Test {
 			inOrderList.add(i);
 		}
 
-		ScapegoatTree inOrderScape = new ScapegoatTree(0.5, true);
+		ScapegoatTree inOrderScape = new ScapegoatTree(0.5);
 
 		for (i = 0; i < 1000; i++) {
 			inOrderScape.insert(inOrderList.get(i));
@@ -171,11 +171,11 @@ public class Test {
 				System.out.println(pointersUsedForSearch[i]);
 			}
 		}
-*/
+
 		/***********************************************************
 		* Reverse-Order (Descending) input.                        *
 		***********************************************************/
-/*		
+		
 		System.out.println();
 		System.out.println("Descending order list");
 
@@ -184,7 +184,7 @@ public class Test {
 			descendOrderList.add(i);
 		}
 		
-		ScapegoatTree descendOrderScape = new ScapegoatTree(0.5, true);
+		ScapegoatTree descendOrderScape = new ScapegoatTree(0.5);
 
 		for (i = 0; i < 1000; i++) {
 			descendOrderScape.insert(descendOrderList.get(i));
@@ -209,11 +209,11 @@ public class Test {
 				System.out.println(pointersUsedForSearch[i]);
 			}	
 		}
-*/
+
 		/***********************************************************
 		* Permuted input. Check number of pointers used per search *
 		***********************************************************/
-/*
+
 		System.out.println();
 		System.out.println("Permuted list");
 
@@ -223,7 +223,7 @@ public class Test {
 		}
 		Collections.shuffle(permuted);
 
-		ScapegoatTree permutedScape = new ScapegoatTree(0.5, true);
+		ScapegoatTree permutedScape = new ScapegoatTree(0.5);
 
 		for (i = 0; i < 1000; i++) {
 			permutedScape.insert(permuted.get(i));
@@ -248,7 +248,7 @@ public class Test {
 				System.out.println(pointersUsedForSearch[i]);
 			}
 		}	
-*/		
+		
 
 		/***********************************************************
 		* How many rebuild are performed and what are the sizes    *

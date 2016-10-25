@@ -10,7 +10,7 @@ public class ScapegoatTree {
 	private double alpha;
 	private int depth = 0;
 	private Node parent;
-	private boolean test;
+	private boolean test = false;
 	public int pointersused;
 	public int numberOfRebuild = 0;
 	public double sizeOfRebuild;
@@ -18,6 +18,10 @@ public class ScapegoatTree {
 	public ScapegoatTree(double alpha, boolean test) {
 		setAlpha(alpha);
 		this.test = test;
+	}	
+
+	public ScapegoatTree(double alpha) {
+		setAlpha(alpha);
 	}	
 
 	public boolean search(int key) {

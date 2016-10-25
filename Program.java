@@ -33,7 +33,7 @@ public class Program {
 		}	
 		
 		int size = lines.size();
-		ScapegoatTree tree = new ScapegoatTree(0.5, false);
+		ScapegoatTree tree = new ScapegoatTree(0.5);
 
 		try {
 
