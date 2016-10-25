@@ -4,6 +4,7 @@
 **************************************/
 
 import java.util.List;
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.nio.file.Files;
 import java.nio.charset.Charset;
@@ -32,8 +33,13 @@ public class Program {
 			System.out.println("Something went wrong");
 		}	
 		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Please choose an Alpha between 1,0 and 0,5");
+		double alpha = sc.nextDouble();
+
+
 		int size = lines.size();
-		ScapegoatTree tree = new ScapegoatTree(0.5);
+		ScapegoatTree tree = new ScapegoatTree(alpha);
 
 		try {
 
